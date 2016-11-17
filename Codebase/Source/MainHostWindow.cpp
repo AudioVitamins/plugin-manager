@@ -32,7 +32,7 @@ class MainHostWindow::PluginListWindow  : public DocumentWindow
 {
 public:
     PluginListWindow (MainHostWindow& owner_, AudioPluginFormatManager& pluginFormatManager)
-        : DocumentWindow ("Contra Plugin Scanner", Colours::white,
+        : DocumentWindow ("Contra Plugin Manager", Colours::darkslategrey,
                           DocumentWindow::minimiseButton | DocumentWindow::closeButton),
           owner (owner_)
     {
@@ -75,32 +75,51 @@ MainHostWindow::MainHostWindow()
     : DocumentWindow (JUCEApplication::getInstance()->getApplicationName(), Colours::lightgrey,
                       DocumentWindow::allButtons)
 {
-    const File deadMansPedalFile (getAppProperties().getUserSettings()
-                                  ->getFile().getSiblingFile ("RecentlyCrashedPluginsList"));
-    
-    setContentOwned (new PluginListComponent (pluginFormatManager,
-                                              owner.knownPluginList,
-                                              deadMansPedalFile,
-                                              getAppProperties().getUserSettings(), true), true);
-    
+    formatManager.addDefaultFormats();
+    formatManager.addFormat (new InternalPluginFormat());
+
+    ScopedPointer<XmlElement> savedAudioState (getAppProperties().getUserSettings()
+                                                   ->getXmlValue ("audioDeviceState"));
+
+    deviceManager.initialise (256, 256, savedAudioState, true);
+
     setResizable (true, false);
-    setResizeLimits (300, 400, 800, 1500);
-    setTopLeftPosition (60, 60);
-    
-    restoreWindowStateFromString (getAppProperties().getUserSettings()->getValue ("listWindowPos"));
+    setResizeLimits (500, 400, 10000, 10000);
+    centreWithSize (800, 600);
+
+    setContentOwned (new GraphDocumentComponent (formatManager, &deviceManager), false);
+
+    restoreWindowStateFromString (getAppProperties().getUserSettings()->getValue ("mainWindowPos"));
+
     setVisible (true);
-}
 
-~PluginListWindow()
-{
-    getAppProperties().getUserSettings()->setValue ("listWindowPos", getWindowStateAsString());
-    
-    clearContentComponent();
-}
+    InternalPluginFormat internalFormat;
+    internalFormat.getAllTypes (internalTypes);
 
-void closeButtonPressed()
-{
-    owner.pluginListWindow = nullptr;
+    ScopedPointer<XmlElement> savedPluginList (getAppProperties().getUserSettings()->getXmlValue ("pluginList"));
+
+    if (savedPluginList != nullptr)
+        knownPluginList.recreateFromXml (*savedPluginList);
+
+    pluginSortMethod = (KnownPluginList::SortMethod) getAppProperties().getUserSettings()
+                            ->getIntValue ("pluginSortMethod", KnownPluginList::sortByManufacturer);
+
+    knownPluginList.addChangeListener (this);
+
+    if (FilterGraph* filterGraph = getGraphEditor()->graph.get())
+        filterGraph->addChangeListener (this);
+
+    addKeyListener (getCommandManager().getKeyMappings());
+
+    Process::setPriority (Process::HighPriority);
+
+   #if JUCE_MAC
+    setMacMainMenu (this);
+   #else
+    setMenuBar (this);
+   #endif
+
+    getCommandManager().setFirstCommandTarget (this);
 }
 
 MainHostWindow::~MainHostWindow()

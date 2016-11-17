@@ -43,7 +43,7 @@ public:
         // initialise our settings file..
 
         PropertiesFile::Options options;
-        options.applicationName     = "AudioVitaminsContra";
+        options.applicationName     = "Juce Audio Plugin Host";
         options.filenameSuffix      = "settings";
         options.osxLibrarySubFolder = "Preferences";
 
@@ -113,7 +113,7 @@ public:
             JUCEApplicationBase::quit();
     }
 
-    const String getApplicationName() override       { return "Contra Plugin Manager"; }
+    const String getApplicationName() override       { return "Juce Plug-In Host"; }
     const String getApplicationVersion() override    { return ProjectInfo::versionString; }
     bool moreThanOneInstanceAllowed() override       { return true; }
 
