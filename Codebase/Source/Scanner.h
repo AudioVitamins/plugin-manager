@@ -23,13 +23,10 @@ class Scanner:
 	String mScanMsg;
 	int mIndex;
 	bool mFinished;
-	void scanPluginStarted(ScannerPlugin *source, String &type) override {
+	void scanPluginStarted(ScannerPlugin *source, String type) override {
 		mMessage += type + ": ";
 	};
-	void processBeingScaned(ScannerPlugin *source, double &process, String &msg) override {
-		
-	};
-	void scanPluginFinished(ScannerPlugin *source, String &type) override {
+	void scanPluginFinished(ScannerPlugin *source, String type) override {
 		mMessage += "Finished\n";
 		NextScan();
 	};

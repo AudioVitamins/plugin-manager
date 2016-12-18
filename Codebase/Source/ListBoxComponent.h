@@ -352,7 +352,6 @@ public:
 			this->setColour(ListBox::ColourIds::backgroundColourId, Colour::fromFloatRGBA(0, 0, 0, 0));
 			mVScrollBarLook = new LookAndFeelMethod();
 			ScrollBar * scrollBar = this->getVerticalScrollBar();
-			Viewport *report = this->getViewport();
 			scrollBar->setLookAndFeel(new LookAndFeelMethod());
 		};
 		~CustomListBox() {

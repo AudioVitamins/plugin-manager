@@ -15,8 +15,7 @@
 #include "XmlUtil.h"
 #include <map>
 
-class ApplicationConfig :
-	public  ChangeListener
+class ApplicationConfig 
 {
 public:
 	enum class Generation {
@@ -29,9 +28,7 @@ public:
 		if (instance == nullptr) {
 			instance = new ApplicationConfig();
 		} 
-		else {
-			return *instance;
-		}
+		return *instance;
 	}
 
 	class SettingConfig {
@@ -210,7 +207,7 @@ public:
 			PluginDescription * desc = mKnownPluginList->getType(i);
 			mListPlugin[desc->manufacturerName].add(desc);
 			char tmp[100] = { 0 };
-			sprintf(tmp, "%-35s %-3s", desc->name, desc->pluginFormatName);
+			sprintf(tmp, "%-35s %-3s", desc->name.toRawUTF8(), desc->pluginFormatName.toRawUTF8());
 			mListPluginName[desc->manufacturerName].add(tmp);
 		}
 		for (std::map<String, Array<String>>::iterator it = mListPluginName.begin(); it != mListPluginName.end(); ++it) {
@@ -219,13 +216,41 @@ public:
 	};
 
 	void GenerateSetting() {
+		PropertiesFile::Options options;
+		if (mGenerateMode == Generation::CONTRA) {
+			options.applicationName = "AudioVitaminsContra";
+			options.filenameSuffix = "settings";
+			options.osxLibrarySubFolder = "Preferences"; // check the correct directory
+		}
+		else if (mGenerateMode == Generation::MSG) {
+			options.applicationName = "AudioVitaminsMSG";
+			options.filenameSuffix = "settings";
+			options.osxLibrarySubFolder = "Preferences"; // check the correct directory
+		}
+
+		ApplicationProperties *gAppProperties = new ApplicationProperties();
+		gAppProperties->setStorageParameters(options);
+		ScopedPointer<KnownPluginList> knownPluginList = new KnownPluginList();
+		for (int i = 0; i < mListManu.size(); i++) {
+			OwnedArray<PluginDescription> &arr = mListPlugin[mListManu[i]];
+			SparseSet<int> &select = mListSelectedPlugin[i];
+			for (int j = 0; j < select.size(); j++) {
+				PluginDescription * des = arr[select[j]];
+				if (des != nullptr) {
+					knownPluginList->addType(*des);
+				}
+			}
+		}
+
+		KnownPluginList::SortMethod pluginSortMethod = (KnownPluginList::SortMethod)gAppProperties->getUserSettings()->getIntValue("pluginSortMethod", KnownPluginList::sortByManufacturer);
+		knownPluginList->sort(pluginSortMethod, true);
+
+		ScopedPointer<XmlElement> savedPluginList(knownPluginList->createXml());
+		PropertiesFile*userSettings = gAppProperties->getUserSettings();
+		userSettings->setValue("pluginList", savedPluginList);
+		gAppProperties->saveIfNeeded();
 	};
 private:
-
-	void changeListenerCallback(ChangeBroadcaster* source) {
-
-	};
-
 	static ApplicationConfig *instance;
 
 	ApplicationConfig() {
@@ -240,7 +265,6 @@ private:
 		mAppProperties->setStorageParameters(options);
 
 		mKnownPluginList = new KnownPluginList();
-		mKnownPluginList->addChangeListener(this);
 
 		mDeadMansPedalFile = new File();
 
@@ -339,34 +363,6 @@ private:
 			cache = nullptr;
 		}
 	};
-
-	void GenerateContra() {
-		//PropertiesFile::Options options;
-		//options.applicationName = "AudioVitaminsContra";
-		//options.filenameSuffix = "settings";
-		//options.osxLibrarySubFolder = "Preferences"; // check the correct directory
-
-		//ApplicationProperties *gAppProperties = new ApplicationProperties();
-		//gAppProperties->setStorageParameters(options);
-		//ScopedPointer<XmlElement> pluginList(gAppProperties->getUserSettings()->getXmlValue("pluginList"));
-		//knownPluginList->addChangeListener(this);
-		//pluginSortMethod = (KnownPluginList::SortMethod)gAppProperties->getUserSettings()->getIntValue("pluginSortMethod", KnownPluginList::sortByManufacturer);
-		//knownPluginList->sort(pluginSortMethod, true);
-
-		//ScopedPointer<XmlElement> savedPluginList(knownPluginList->createXml());
-
-		//if (savedPluginList != nullptr)
-		//{
-		//	PropertiesFile*userSettings = gAppProperties->getUserSettings();
-
-		//	userSettings->setValue("pluginList", savedPluginList);
-		//	gAppProperties->saveIfNeeded();
-		//}
-	};
-
-	void GenerateMsg() {
-
-	}
 
 	std::map<int, SparseSet<int>> mListSelectedPlugin;
 	int mSelectedManuIndex;

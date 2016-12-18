@@ -17,9 +17,8 @@ class ScannerPlugin : private Timer
 public:
 	class Listener {
 	public:
-		virtual void scanPluginStarted(ScannerPlugin *source, String &type) = 0;
-		virtual void processBeingScaned(ScannerPlugin *source, double &process, String &msg) = 0;
-		virtual void scanPluginFinished(ScannerPlugin *source, String &type) = 0;
+		virtual void scanPluginStarted(ScannerPlugin *source, String type) = 0;
+		virtual void scanPluginFinished(ScannerPlugin *source, String type) = 0;
 	};
 private:
 	OwnedArray<Listener> mListeners;

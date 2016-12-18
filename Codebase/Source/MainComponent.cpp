@@ -165,6 +165,7 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == btnCreate)
     {
         //[UserButtonCode_btnCreate] -- add your button handler code here..
+		ApplicationConfig::Instance().GenerateSetting();
         //[/UserButtonCode_btnCreate]
     }
     else if (buttonThatWasClicked == btnSetting)
@@ -239,13 +240,13 @@ void MainContentComponent::selectedRowsChanged(ListBoxComponent *source, int las
 		ApplicationConfig::Instance().SetSelectList(lbxPlugin->getSelectedRows());
 	}
 }
-void MainContentComponent::listBoxItemClicked(ListBoxComponent *source, int row, const MouseEvent& e) {
+void MainContentComponent::listBoxItemClicked(ListBoxComponent *source, int /*row*/, const MouseEvent& /*e*/) {
 	if (source == lbxManufacture) {
 	}
 	else if (source == lbxPlugin) {
 	}
 }
-void MainContentComponent::listBoxItemDoubleClicked(ListBoxComponent *source, int row, const MouseEvent& e) {
+void MainContentComponent::listBoxItemDoubleClicked(ListBoxComponent *source, int /*row*/, const MouseEvent&/* e*/) {
 	if (source == lbxManufacture) {
 	}
 	else if (source == lbxPlugin) {
