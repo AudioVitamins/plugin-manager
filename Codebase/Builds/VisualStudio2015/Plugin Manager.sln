@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2015
+Project("{249CE38A-B507-F02A-0F36-08E5AB6967CC}") = "Plugin Manager", "Plugin Manager.vcxproj", "{FEABECE8-D397-96B5-10DB-F6B4198F7CE5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEABECE8-D397-96B5-10DB-F6B4198F7CE5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FEABECE8-D397-96B5-10DB-F6B4198F7CE5}.Debug|Win32.Build.0 = Debug|Win32
+		{FEABECE8-D397-96B5-10DB-F6B4198F7CE5}.Release|Win32.ActiveCfg = Release|Win32
+		{FEABECE8-D397-96B5-10DB-F6B4198F7CE5}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="YbevGD" name="Plugin Manager" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.PluginManager" includeBinaryInAppConfig="1"
+              jucerVersion="4.2.3">
+  <MAINGROUP id="BYXomi" name="Plugin Manager">
+    <GROUP id="{66699AE0-6290-0E57-9B61-B9916F103367}" name="Source">
+      <GROUP id="{BA084A98-9D53-BB88-5393-46648F0E9F18}" name="XmlUtil">
+        <FILE id="NjUuTR" name="XmlUtil.cpp" compile="1" resource="0" file="Source/XmlUtil.cpp"/>
+        <FILE id="D39War" name="XmlUtil.h" compile="0" resource="0" file="Source/XmlUtil.h"/>
+      </GROUP>
+      <FILE id="GoQBl4" name="Scanner.cpp" compile="1" resource="0" file="Source/Scanner.cpp"/>
+      <FILE id="tDXKCL" name="Scanner.h" compile="0" resource="0" file="Source/Scanner.h"/>
+      <GROUP id="{CC419C3C-06FE-BFE0-4551-7A9AF9751F68}" name="ScanPlugin">
+        <FILE id="In3DNH" name="ScannerPlugin.h" compile="0" resource="0" file="Source/ScannerPlugin.h"/>
+      </GROUP>
+      <FILE id="yoEnBf" name="ApplicationConfig.cpp" compile="1" resource="0"
+            file="Source/ApplicationConfig.cpp"/>
+      <FILE id="WAspfO" name="ApplicationConfig.h" compile="0" resource="0"
+            file="Source/ApplicationConfig.h"/>
+      <GROUP id="{64166B61-6BC2-735F-003C-E5E057083B05}" name="ListBoxComponent">
+        <FILE id="mzlAzO" name="SettingWindow.cpp" compile="1" resource="0"
+              file="Source/SettingWindow.cpp"/>
+        <FILE id="D3E2fT" name="SettingWindow.h" compile="0" resource="0" file="Source/SettingWindow.h"/>
+        <FILE id="j3MiSX" name="HeaderComponent.cpp" compile="1" resource="0"
+              file="Source/HeaderComponent.cpp"/>
+        <FILE id="XRKShI" name="HeaderComponent.h" compile="0" resource="0"
+              file="Source/HeaderComponent.h"/>
+        <FILE id="XrszVn" name="ListBoxComponent.cpp" compile="1" resource="0"
+              file="Source/ListBoxComponent.cpp"/>
+        <FILE id="lvhlti" name="ListBoxComponent.h" compile="0" resource="0"
+              file="Source/ListBoxComponent.h"/>
+      </GROUP>
+      <FILE id="Kjm68m" name="SettingComponent.cpp" compile="1" resource="0"
+            file="Source/SettingComponent.cpp"/>
+      <FILE id="yR2GIO" name="SettingComponent.h" compile="0" resource="0"
+            file="Source/SettingComponent.h"/>
+      <FILE id="GFpKdo" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="jCjJje" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="VxSk4y" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="D:\Working\FrameWork\VST3 SDK"
+            vst3Folder="D:\Working\FrameWork\VST3 SDK">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="Plugin Manager"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="3" targetName="Plugin Manager"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../FrameWork/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../FrameWork/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2015>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_PLUGINHOST_VST="enabled" JUCE_PLUGINHOST_VST3="enabled"
+               JUCE_PLUGINHOST_AU="enabled"/>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>

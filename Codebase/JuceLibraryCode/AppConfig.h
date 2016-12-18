@@ -11,8 +11,8 @@
 
 */
 
-#ifndef __JUCE_APPCONFIG_NTE0XB0IJ__
-#define __JUCE_APPCONFIG_NTE0XB0IJ__
+#ifndef __JUCE_APPCONFIG_YBEVGD__
+#define __JUCE_APPCONFIG_YBEVGD__
 
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
@@ -26,7 +26,6 @@
 #define JUCE_MODULE_AVAILABLE_juce_audio_devices         1
 #define JUCE_MODULE_AVAILABLE_juce_audio_formats         1
 #define JUCE_MODULE_AVAILABLE_juce_audio_processors      1
-#define JUCE_MODULE_AVAILABLE_juce_audio_utils           1
 #define JUCE_MODULE_AVAILABLE_juce_core                  1
 #define JUCE_MODULE_AVAILABLE_juce_cryptography          1
 #define JUCE_MODULE_AVAILABLE_juce_data_structures       1
@@ -56,7 +55,7 @@
 #endif
 
 #ifndef    JUCE_WASAPI
- #define   JUCE_WASAPI 1
+ //#define JUCE_WASAPI
 #endif
 
 #ifndef    JUCE_WASAPI_EXCLUSIVE
@@ -64,11 +63,11 @@
 #endif
 
 #ifndef    JUCE_DIRECTSOUND
- #define   JUCE_DIRECTSOUND 1
+ //#define JUCE_DIRECTSOUND
 #endif
 
 #ifndef    JUCE_ALSA
- #define   JUCE_ALSA 1
+ //#define JUCE_ALSA
 #endif
 
 #ifndef    JUCE_JACK
@@ -79,15 +78,23 @@
  //#define JUCE_USE_ANDROID_OPENSLES
 #endif
 
+#ifndef    JUCE_USE_CDREADER
+ //#define JUCE_USE_CDREADER
+#endif
+
+#ifndef    JUCE_USE_CDBURNER
+ //#define JUCE_USE_CDBURNER
+#endif
+
 //==============================================================================
 // juce_audio_formats flags:
 
 #ifndef    JUCE_USE_FLAC
- #define   JUCE_USE_FLAC 0
+ //#define JUCE_USE_FLAC
 #endif
 
 #ifndef    JUCE_USE_OGGVORBIS
- #define   JUCE_USE_OGGVORBIS 0
+ //#define JUCE_USE_OGGVORBIS
 #endif
 
 #ifndef    JUCE_USE_MP3AUDIOFORMAT
@@ -118,17 +125,6 @@
 #endif
 
 //==============================================================================
-// juce_audio_utils flags:
-
-#ifndef    JUCE_USE_CDREADER
- #define   JUCE_USE_CDREADER 0
-#endif
-
-#ifndef    JUCE_USE_CDBURNER
- #define   JUCE_USE_CDBURNER 0
-#endif
-
-//==============================================================================
 // juce_core flags:
 
 #ifndef    JUCE_FORCE_DEBUG
@@ -153,14 +149,6 @@
 
 #ifndef    JUCE_USE_CURL
  //#define JUCE_USE_CURL
-#endif
-
-#ifndef    JUCE_CATCH_UNHANDLED_EXCEPTIONS
- //#define JUCE_CATCH_UNHANDLED_EXCEPTIONS
-#endif
-
-#ifndef    JUCE_ALLOW_STATIC_NULL_VARIABLES
- //#define JUCE_ALLOW_STATIC_NULL_VARIABLES
 #endif
 
 //==============================================================================
@@ -197,7 +185,7 @@
 // juce_gui_extra flags:
 
 #ifndef    JUCE_WEB_BROWSER
- #define   JUCE_WEB_BROWSER 0
+ //#define JUCE_WEB_BROWSER
 #endif
 
 #ifndef    JUCE_ENABLE_LIVE_CONSTANT_EDITOR
@@ -216,12 +204,12 @@
 #endif
 
 #ifndef    JUCE_QUICKTIME
- #define   JUCE_QUICKTIME 0
+ //#define JUCE_QUICKTIME
 #endif
 
 #ifndef    JUCE_USE_CAMERA
- #define   JUCE_USE_CAMERA 0
+ //#define JUCE_USE_CAMERA
 #endif
 
 
-#endif  // __JUCE_APPCONFIG_NTE0XB0IJ__
+#endif  // __JUCE_APPCONFIG_YBEVGD__

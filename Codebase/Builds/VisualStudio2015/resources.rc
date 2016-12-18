@@ -13,10 +13,9 @@ BEGIN
   BEGIN
     BLOCK "040904E4"
     BEGIN
-      VALUE "CompanyName",  "Audio Vitamins\0"
-      VALUE "FileDescription",  "Contra Plugin manager\0"
+      VALUE "FileDescription",  "Plugin Manager\0"
       VALUE "FileVersion",  "1.0.0\0"
-      VALUE "ProductName",  "Contra Plugin manager\0"
+      VALUE "ProductName",  "Plugin Manager\0"
       VALUE "ProductVersion",  "1.0.0\0"
     END
   END
