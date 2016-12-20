@@ -123,6 +123,15 @@ public:
 					}
 				}
 			}
+			else {
+#ifndef WIN32 
+				mPathScanDir.add("~/Library/Audio/Plugins/Components");
+				mPathScanDir.add("~/Library/Audio/Plugins/VST");
+				mPathScanDir.add("~/Library/Audio/Plugins/VST3");
+#else
+
+#endif
+			}
 		}
 	};
 

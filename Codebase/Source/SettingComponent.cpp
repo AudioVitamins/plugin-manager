@@ -173,16 +173,39 @@ void SettingComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == btnAddFolder)
     {
         //[UserButtonCode_btnAddFolder] -- add your button handler code here..
-		WildcardFileFilter wildcardFilter("*.dll", String::empty, "Foo files");
+		String filter;
+#ifndef WIN32
+			if (mSetting.mUseAU)
+				filter = "*.vst ;";
+
+			if (mSetting.mUseVST)
+				filter = "*.vst ;";
+
+			if (mSetting.mUseVST3)
+				filter = "*.vst3 ;";
+
+			if (mSetting.mUseAU)
+				filter = "*.component;";
+#else
+			if (mSetting.mUseVST) {
+				filter = "*.vst ;";
+			}
+			if (mSetting.mUseVST3) {
+				filter = "*.vst3 ;";
+			}
+			filter = "*.dll;";
+#endif
+		WildcardFileFilter wildcardFilter(filter, String::empty, "Foo files");
 		FileBrowserComponent browser(FileBrowserComponent::canSelectDirectories | FileBrowserComponent::openMode,
 			File::nonexistent,
 			&wildcardFilter,
 			nullptr);
-		FileChooserDialogBox dialogBox("Select your VST3 plugins  Directory",
+		FileChooserDialogBox dialogBox("Select your plugins Directory",
 			"Please highlight the directory and click Open",
 			browser,
 			false,
 			Colours::lightgrey);
+		dialogBox.setAlwaysOnTop(true);
 		if (dialogBox.show())
 		{
 			File selectedFile = browser.getSelectedFile(0);
