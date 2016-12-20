@@ -216,16 +216,19 @@ public:
 	};
 
 	void GenerateSetting() {
+		String message = "Settings files for";
 		PropertiesFile::Options options;
 		if (mGenerateMode == Generation::CONTRA) {
 			options.applicationName = "AudioVitaminsContra";
 			options.filenameSuffix = "settings";
 			options.osxLibrarySubFolder = "Preferences"; // check the correct directory
+			message += " Contra created";
 		}
 		else if (mGenerateMode == Generation::MSG) {
 			options.applicationName = "AudioVitaminsMSG";
 			options.filenameSuffix = "settings";
 			options.osxLibrarySubFolder = "Preferences"; // check the correct directory
+			message += " Msg created";
 		}
 
 		ApplicationProperties *gAppProperties = new ApplicationProperties();
@@ -249,6 +252,9 @@ public:
 		PropertiesFile*userSettings = gAppProperties->getUserSettings();
 		userSettings->setValue("pluginList", savedPluginList);
 		gAppProperties->saveIfNeeded();
+
+
+		NativeMessageBox::showMessageBox(AlertWindow::NoIcon, "", message);
 	};
 private:
 	static ApplicationConfig *instance;
