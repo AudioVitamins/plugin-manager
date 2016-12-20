@@ -295,13 +295,13 @@ private:
 		}
 		else {
 #ifndef WIN32 
-			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/Components");
-			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/VST");
-			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/VST3");
+			mSettingConfig.mPathScanDir.add("C:\Program Files\VSTPlugins");
+            mSettingConfig.mPathScanDir.add("C:\Program Files\Steinberg\VstPlugins");
+            mSettingConfig.mPathScanDir.add("C:\Program Files\Common Files\VST3");
 #else
-			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/Components");
-			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/VST");
-			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/VST3");
+			mSettingConfig.mPathScanDir.add("/Library/Audio/Plugins/Components");
+			mSettingConfig.mPathScanDir.add("/Library/Audio/Plugins/VST");
+			mSettingConfig.mPathScanDir.add("/Library/Audio/Plugins/VST3");
 #endif
 		}
 	};

@@ -43,7 +43,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	void PluginWindow::closeButtonPressed() override
+	void closeButtonPressed() override
 	{
 		delete this;
 	}

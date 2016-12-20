@@ -175,25 +175,21 @@ void SettingComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_btnAddFolder] -- add your button handler code here..
 		String filter;
 #ifndef WIN32
-			if (mSetting.mUseAU)
-				filter = "*.vst ;";
-
-			if (mSetting.mUseVST)
-				filter = "*.vst ;";
-
-			if (mSetting.mUseVST3)
-				filter = "*.vst3 ;";
-
-			if (mSetting.mUseAU)
-				filter = "*.component;";
+        if (mSetting.mUseVST) {
+            filter = "*.dll ;";
+        }
+        if (mSetting.mUseVST3) {
+            filter = "*.vst3 ;";
+        }
 #else
-			if (mSetting.mUseVST) {
-				filter = "*.vst ;";
-			}
-			if (mSetting.mUseVST3) {
-				filter = "*.vst3 ;";
-			}
-			filter = "*.dll;";
+        if (mSetting.mUseVST)
+            filter = "*.vst ;";
+        
+        if (mSetting.mUseVST3)
+            filter = "*.vst3 ;";
+        
+        if (mSetting.mUseAU)
+            filter = "*.component ;";
 #endif
 		WildcardFileFilter wildcardFilter(filter, String::empty, "Foo files");
 		FileBrowserComponent browser(FileBrowserComponent::canSelectDirectories | FileBrowserComponent::openMode,
