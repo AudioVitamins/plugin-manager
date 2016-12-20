@@ -265,7 +265,7 @@ private:
 		PropertiesFile::Options options;
 		options.applicationName = "Plugin Manager";
 		options.filenameSuffix = "Config";
-		options.osxLibrarySubFolder = "AudioVitamin"; // check the correct directory
+		options.osxLibrarySubFolder = "Preferences"; // check the correct directory
 
 		mAppProperties = new ApplicationProperties();
 		mAppProperties->setStorageParameters(options);
