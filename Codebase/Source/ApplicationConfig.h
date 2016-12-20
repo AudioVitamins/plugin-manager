@@ -123,15 +123,6 @@ public:
 					}
 				}
 			}
-			else {
-#ifndef WIN32 
-				mPathScanDir.add("~/Library/Audio/Plugins/Components");
-				mPathScanDir.add("~/Library/Audio/Plugins/VST");
-				mPathScanDir.add("~/Library/Audio/Plugins/VST3");
-#else
-
-#endif
-			}
 		}
 	};
 
@@ -301,6 +292,17 @@ private:
 		ScopedPointer<XmlElement> eSetting(userSettings->getXmlValue("Setting"));
 		if (eSetting != nullptr) {
 			mSettingConfig.FromXml(*eSetting);
+		}
+		else {
+#ifndef WIN32 
+			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/Components");
+			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/VST");
+			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/VST3");
+#else
+			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/Components");
+			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/VST");
+			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/VST3");
+#endif
 		}
 	};
 	void SaveSetting() {
