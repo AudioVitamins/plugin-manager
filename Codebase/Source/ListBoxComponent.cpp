@@ -24,7 +24,8 @@
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
-ListBoxComponent::ListBoxComponent(OwnedArray<PluginDescription> &listPlugins):mListStrings(Array<String>()) {
+Array<String> ListBoxComponent::sListStrings = Array<String>();
+ListBoxComponent::ListBoxComponent(OwnedArray<PluginDescription> &listPlugins):mListStrings(ListBoxComponent::sListStrings) {
 	mCheckList = LIST_PLUGIN_CHECK_BOX;
 	mHeaderCheckBox = new HeaderComponent(this);
 	//[/Constructor_pre]

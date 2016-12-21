@@ -485,6 +485,8 @@ private:
 	friend class StringModel;
 	friend class StringCheckBoxModel;
 	friend class PluginCheckBoxModel;
+
+	static Array<String> sListStrings;
     //[/UserVariables]
 
     //==============================================================================
