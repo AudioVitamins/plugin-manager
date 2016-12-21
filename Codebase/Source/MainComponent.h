@@ -64,8 +64,6 @@ public:
     // Binary resources:
     static const char* pluginmanager_background_uismaller_png;
     static const int pluginmanager_background_uismaller_pngSize;
-    static const char* contraoffbutton_png;
-    static const int contraoffbutton_pngSize;
     static const char* contraonbutton_png;
     static const int contraonbutton_pngSize;
     static const char* msgoffbutton_png;
@@ -78,12 +76,15 @@ public:
     static const int scanbutton_pngSize;
     static const char* settingsbutton_png;
     static const int settingsbutton_pngSize;
+    static const char* contraoffbutton_png;
+    static const int contraoffbutton_pngSize;
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	Array<String> mListManu;
 	Array<String> mListPlugin;
+	OwnedArray<PluginDescription> mListPlugins;
     //[/UserVariables]
 
     //==============================================================================

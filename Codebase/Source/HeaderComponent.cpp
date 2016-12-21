@@ -70,7 +70,7 @@ HeaderComponent::HeaderComponent (ListBoxComponent *listBox)
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (224, 33);
+    setSize (280, 33);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -107,10 +107,10 @@ void HeaderComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    btnSelectAll->setBounds (16, 0, 77, 17);
-    btnSelectNone->setBounds (112, 0, 95, 17);
+    btnSelectAll->setBounds (40, 0, 77, 17);
+    btnSelectNone->setBounds (144, 0, 95, 17);
     lbName->setBounds (35, 17, 56, 16);
-    lbType->setBounds (175, 16, 48, 16);
+    lbType->setBounds (236, 16, 48, 16);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -155,16 +155,16 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="HeaderComponent" componentName=""
                  parentClasses="public Component" constructorParams="ListBoxComponent *listBox"
                  variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
-                 overlayOpacity="0.330" fixedSize="1" initialWidth="224" initialHeight="33">
+                 overlayOpacity="0.330" fixedSize="1" initialWidth="280" initialHeight="33">
   <BACKGROUND backgroundColour="0"/>
   <IMAGEBUTTON name="new button" id="1b658bd6674750d3" memberName="btnSelectAll"
-               virtualName="" explicitFocusOrder="0" pos="16 0 77 17" buttonText="new button"
+               virtualName="" explicitFocusOrder="0" pos="40 0 77 17" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="pluginmanager_selectall_button_png" opacityNormal="1"
                colourNormal="0" resourceOver="" opacityOver="1" colourOver="0"
                resourceDown="" opacityDown="1" colourDown="0"/>
   <IMAGEBUTTON name="new button" id="7ab5766178803abe" memberName="btnSelectNone"
-               virtualName="" explicitFocusOrder="0" pos="112 0 95 17" buttonText="new button"
+               virtualName="" explicitFocusOrder="0" pos="144 0 95 17" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="pluginmanager_selectnone_button_png" opacityNormal="1"
                colourNormal="0" resourceOver="" opacityOver="1" colourOver="0"
@@ -175,7 +175,7 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="1d835071c97fcb1c" memberName="lbType" virtualName=""
-         explicitFocusOrder="0" pos="175 16 48 16" textCol="ffffffff"
+         explicitFocusOrder="0" pos="236 16 48 16" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="TYPE&#10;" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>

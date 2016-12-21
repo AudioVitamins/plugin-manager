@@ -174,7 +174,7 @@ void SettingComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_btnAddFolder] -- add your button handler code here..
 		String filter;
-#ifndef WIN32
+#ifdef WIN32
         if (mSetting.mUseVST) {
             filter = "*.dll ;";
         }

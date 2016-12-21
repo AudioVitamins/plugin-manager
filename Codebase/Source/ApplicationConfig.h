@@ -173,10 +173,10 @@ public:
 	Array<String> &GetManu() {
 		return mListManu;
 	};
-	Array<String> &GetPlugins(String manu) {
-		return mListPluginName[manu];
+	OwnedArray<PluginDescription> &GetPlugins(String manu) {
+		return mListPlugin[manu];
 	};
-	
+
 	void Save() {
 		SaveSetting();
 		SaveGeneration();
@@ -294,7 +294,7 @@ private:
 			mSettingConfig.FromXml(*eSetting);
 		}
 		else {
-#ifndef WIN32 
+#ifdef WIN32 
 			mSettingConfig.mPathScanDir.add("C:\Program Files\VSTPlugins");
             mSettingConfig.mPathScanDir.add("C:\Program Files\Steinberg\VstPlugins");
             mSettingConfig.mPathScanDir.add("C:\Program Files\Common Files\VST3");

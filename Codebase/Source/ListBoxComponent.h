@@ -44,6 +44,13 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+	ListBoxComponent(OwnedArray<PluginDescription> &listPlugins);
+	enum ModelType{
+		LIST_STRING,
+		LIST_STRING_CHECK_BOX,
+		LIST_PLUGIN_CHECK_BOX
+	};
+
 	SparseSet<int> getSelectedRows() {
 		return listBox->getSelectedRows();
 	};
@@ -124,7 +131,6 @@ public:
 
 	};
 
-
 	class StringCheckBoxModel : public ListBoxModel {
 		Array<String> &mListStrings;
 		Image uncheckBox, checkBox;
@@ -184,6 +190,67 @@ public:
 
 	};
 
+	class PluginCheckBoxModel : public ListBoxModel {
+		//Array<String> &mListStrings;
+		OwnedArray<PluginDescription> &mListPlugins;
+		Image uncheckBox, checkBox;
+		ListBoxComponent *mOwner;
+	public:
+		PluginCheckBoxModel(ListBoxComponent *own, OwnedArray<PluginDescription> &listPlugins) : ListBoxModel(), mOwner(own), mListPlugins(listPlugins) {
+			uncheckBox = ImageCache::getFromMemory(ListBoxComponent::pluginmanager_checkbox_empty_button_png, ListBoxComponent::pluginmanager_checkbox_empty_button_pngSize);
+			checkBox = ImageCache::getFromMemory(ListBoxComponent::pluginmanager_checkbox_greyfill_button_png, ListBoxComponent::pluginmanager_checkbox_greyfill_button_pngSize);
+		};
+
+		~PluginCheckBoxModel() {
+		};
+
+		int getNumRows() override {
+			return mListPlugins.size();
+		}
+
+		void paintListBoxItem(int rowNumber,
+			Graphics& g,
+			int width, int height,
+			bool rowIsSelected) override {
+			//if (rowIsSelected)
+			//	g.fillAll(Colours::lightblue);
+
+			PluginDescription *plugin = mListPlugins[rowNumber];
+
+			g.setColour(Colours::white);
+
+			int y = height - 16;
+			int x = 4;
+			if (rowIsSelected) {
+				g.drawImage(checkBox, x, y, 11, 11, 0, 0, 11, 11);
+			}
+			else {
+				g.drawImage(uncheckBox, x, y, 11, 11, 0, 0, 11, 11);
+			}
+			g.drawText(plugin->name, x + 11 + 4, 0, width - 4 - 50, height, Justification::centredLeft, true);
+
+			g.drawText(plugin->pluginFormatName, x + 11 + 4 + width - 4 - 50, 0, width - 4, height, Justification::centredLeft, true);
+
+		};
+
+		Component* refreshComponentForRow(int rowNumber, bool isRowSelected,
+			Component* existingComponentToUpdate) override {
+			return existingComponentToUpdate;
+		};
+
+		void selectedRowsChanged(int lastRowSelected) override {
+			mOwner->selectedRowsChanged(mOwner, lastRowSelected);
+		};
+
+		void listBoxItemClicked(int row, const MouseEvent& e) override {
+			mOwner->listBoxItemClicked(mOwner, row, e);
+		};
+
+		void listBoxItemDoubleClicked(int row, const MouseEvent& e) override {
+			mOwner->listBoxItemDoubleClicked(mOwner, row, e);
+		};
+
+	};
 
 	class CustomListBox : public ListBox {
 
@@ -393,8 +460,9 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	ScopedPointer<StringModel> mData;
 	ScopedPointer<StringCheckBoxModel> mCheckBoxData;
+	ScopedPointer<PluginCheckBoxModel> mPluginCheckBoxData;
 	ScopedPointer<HeaderComponent> mHeaderCheckBox;
-	bool mCheckList;
+	ModelType mCheckList;
 	Array<String> &mListStrings;
 	OwnedArray<Listener> mListeners;
 
@@ -416,6 +484,7 @@ private:
 	};
 	friend class StringModel;
 	friend class StringCheckBoxModel;
+	friend class PluginCheckBoxModel;
     //[/UserVariables]
 
     //==============================================================================
@@ -428,6 +497,7 @@ private:
 
 //[EndFile] You can add extra defines here...
 typedef ListBoxComponent::Listener ListBoxListener;
+typedef ListBoxComponent::ModelType ListBoxModel;
 //[/EndFile]
 
 #endif   // __JUCE_HEADER_937F5D56504737B0__

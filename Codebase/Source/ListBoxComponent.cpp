@@ -24,6 +24,23 @@
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
+ListBoxComponent::ListBoxComponent(OwnedArray<PluginDescription> &listPlugins):mListStrings(Array<String>()) {
+	mCheckList = LIST_PLUGIN_CHECK_BOX;
+	mHeaderCheckBox = new HeaderComponent(this);
+	//[/Constructor_pre]
+
+	addAndMakeVisible(listBox = new CustomListBox());
+	listBox->setName(CharPointer_UTF8("L\xc3\xadst Box"));
+
+	listBox->setMultipleSelectionEnabled(true);
+	listBox->setClickingTogglesRowSelection(true);
+	listBox->setHeaderComponent(mHeaderCheckBox);
+
+	mPluginCheckBoxData = new PluginCheckBoxModel(this, listPlugins);
+	listBox->setModel(mCheckBoxData);
+
+	setSize(348, 384);
+};
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -31,7 +48,12 @@ ListBoxComponent::ListBoxComponent (Array<String> &listStrings, bool check)
     : mListStrings(listStrings)
 {
     //[Constructor_pre] You can add your own custom stuff here..
-	mCheckList = check;
+	if (check) {
+		mCheckList = LIST_STRING_CHECK_BOX;
+	}
+	else {
+		mCheckList = LIST_STRING;
+	}
 	mHeaderCheckBox = new HeaderComponent(this);
     //[/Constructor_pre]
 
@@ -41,7 +63,7 @@ ListBoxComponent::ListBoxComponent (Array<String> &listStrings, bool check)
 
     //[UserPreSize]
 
-	if (mCheckList) {
+	if (mCheckList == LIST_STRING_CHECK_BOX) {
 		listBox->setMultipleSelectionEnabled(true);
 		listBox->setClickingTogglesRowSelection(true);
 		listBox->setHeaderComponent(mHeaderCheckBox);
@@ -102,12 +124,22 @@ void ListBoxComponent::resized()
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void ListBoxComponent::UpdateList() {
 	listBox->setModel(nullptr);
-	if (mCheckList) {
-		listBox->setModel(mCheckBoxData);
-	}
-	else {
+	switch (mCheckList)
+	{
+	case LIST_PLUGIN_CHECK_BOX:
+		listBox->setModel(mPluginCheckBoxData);
+		break;
+	case LIST_STRING:
 		listBox->setModel(mData);
+		break;
+	case LIST_STRING_CHECK_BOX:
+		listBox->setModel(mCheckBoxData);
+		break;
+
+	default:
+		break;
 	}
+
 	listBox->updateContent();
 	listBox->repaint();
 }
