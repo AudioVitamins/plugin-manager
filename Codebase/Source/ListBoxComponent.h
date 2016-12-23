@@ -35,17 +35,17 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class ListBoxComponent  : public Component
+class ListBoxComponent : public Component
 {
 public:
-    //==============================================================================
-    ListBoxComponent (Array<String> &listStrings, bool check);
-    ~ListBoxComponent();
+	//==============================================================================
+	ListBoxComponent(Array<String> &listStrings, bool check);
+	~ListBoxComponent();
 
-    //==============================================================================
-    //[UserMethods]     -- You can add your own custom methods in this section.
+	//==============================================================================
+	//[UserMethods]     -- You can add your own custom methods in this section.
 	ListBoxComponent(OwnedArray<PluginDescription> &listPlugins);
-	enum ModelType{
+	enum ModelType {
 		LIST_STRING,
 		LIST_STRING_CHECK_BOX,
 		LIST_PLUGIN_CHECK_BOX
@@ -87,7 +87,7 @@ public:
 		Array<String> &mListStrings;
 		ListBoxComponent *mOwner;
 	public:
-		StringModel(ListBoxComponent *own, Array<String> &listStrings): ListBoxModel(), mOwner(own),  mListStrings(listStrings){
+		StringModel(ListBoxComponent *own, Array<String> &listStrings) : ListBoxModel(), mOwner(own), mListStrings(listStrings) {
 
 		};
 
@@ -136,7 +136,7 @@ public:
 		Image uncheckBox, checkBox;
 		ListBoxComponent *mOwner;
 	public:
-		StringCheckBoxModel(ListBoxComponent *own, Array<String> &listStrings) : ListBoxModel(), mOwner(own), mListStrings(listStrings){
+		StringCheckBoxModel(ListBoxComponent *own, Array<String> &listStrings) : ListBoxModel(), mOwner(own), mListStrings(listStrings) {
 			uncheckBox = ImageCache::getFromMemory(ListBoxComponent::pluginmanager_checkbox_empty_button_png, ListBoxComponent::pluginmanager_checkbox_empty_button_pngSize);
 			checkBox = ImageCache::getFromMemory(ListBoxComponent::pluginmanager_checkbox_greyfill_button_png, ListBoxComponent::pluginmanager_checkbox_greyfill_button_pngSize);
 		};
@@ -318,7 +318,7 @@ public:
 				float width_slot = 2;
 				if (isScrollbarVertical)
 				{
-					slotPath.addRoundedRectangle(x + width /2 - width_slot/2 ,
+					slotPath.addRoundedRectangle(x + width / 2 - width_slot / 2,
 						y,
 						width_slot,
 						height,
@@ -408,20 +408,21 @@ public:
 			};
 
 			int getDefaultScrollbarWidth() override
-				{
-					return 5;
-				}
+			{
+				return 5;
+			}
 		};
 	private:
 		ScopedPointer<LookAndFeelMethod> mVScrollBarLook;
 	public:
-		CustomListBox():ListBox(){
+		CustomListBox() :ListBox() {
 			this->setColour(ListBox::ColourIds::backgroundColourId, Colour::fromFloatRGBA(0, 0, 0, 0));
 			mVScrollBarLook = new LookAndFeelMethod();
 			ScrollBar * scrollBar = this->getVerticalScrollBar();
-			scrollBar->setLookAndFeel(new LookAndFeelMethod());
+			scrollBar->setLookAndFeel(mVScrollBarLook);
 		};
 		~CustomListBox() {
+			mVScrollBarLook = nullptr;
 		};
 	};
 
@@ -444,6 +445,10 @@ public:
 			}
 		}
 	};
+
+	void removeAllListBoxListener() {
+		mListeners.clear(false);
+	}
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -461,7 +466,7 @@ private:
 	ScopedPointer<StringModel> mData;
 	ScopedPointer<StringCheckBoxModel> mCheckBoxData;
 	ScopedPointer<PluginCheckBoxModel> mPluginCheckBoxData;
-	ScopedPointer<HeaderComponent> mHeaderCheckBox;
+	HeaderComponent* mHeaderCheckBox;
 	ModelType mCheckList;
 	Array<String> &mListStrings;
 	OwnedArray<Listener> mListeners;

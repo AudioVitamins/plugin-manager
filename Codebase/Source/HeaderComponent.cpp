@@ -80,6 +80,8 @@ HeaderComponent::HeaderComponent (ListBoxComponent *listBox)
 HeaderComponent::~HeaderComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+	btnSelectNone->removeListener(this);
+	btnSelectAll->removeListener(this);
     //[/Destructor_pre]
 
     btnSelectAll = nullptr;
@@ -110,7 +112,7 @@ void HeaderComponent::resized()
     btnSelectAll->setBounds (40, 0, 77, 17);
     btnSelectNone->setBounds (144, 0, 95, 17);
     lbName->setBounds (35, 17, 56, 16);
-    lbType->setBounds (236, 16, 48, 16);
+    lbType->setBounds (228, 16, 48, 16);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -175,7 +177,7 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="1d835071c97fcb1c" memberName="lbType" virtualName=""
-         explicitFocusOrder="0" pos="236 16 48 16" textCol="ffffffff"
+         explicitFocusOrder="0" pos="228 16 48 16" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="TYPE&#10;" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>

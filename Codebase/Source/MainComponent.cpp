@@ -95,6 +95,8 @@ MainContentComponent::MainContentComponent ()
 MainContentComponent::~MainContentComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+	lbxPlugin->removeAllListBoxListener();
+	lbxManufacture->removeAllListBoxListener();
     //[/Destructor_pre]
 
     btnContra = nullptr;
@@ -153,6 +155,7 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_btnContra] -- add your button handler code here..
 		buttonThatWasClicked->setToggleState(true, false);
 		ApplicationConfig::Instance().SetGeneration(ApplicationConfig::Generation::CONTRA);
+		updateCache();
         //[/UserButtonCode_btnContra]
     }
     else if (buttonThatWasClicked == btnMsg)
@@ -160,6 +163,7 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_btnMsg] -- add your button handler code here..
 		buttonThatWasClicked->setToggleState(true, false);
 		ApplicationConfig::Instance().SetGeneration(ApplicationConfig::Generation::MSG);
+		updateCache();
         //[/UserButtonCode_btnMsg]
     }
     else if (buttonThatWasClicked == btnCreate)

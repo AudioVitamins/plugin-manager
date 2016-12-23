@@ -153,21 +153,46 @@ public:
 	};
 
 	void SetSelectManufacture(int idx, bool save = true) {
-		mSelectedManuIndex = idx;
-		if(save)
-			SaveSelectManufacture();
+		if (mGenerateMode == Generation::MSG) {
+			mSelectedManuIndexMsg = idx;
+			if (save)
+				SaveSelectManufactureMsg();
+		}
+		else if (mGenerateMode == Generation::CONTRA) {
+			mSelectedManuIndexContra = idx;
+			if (save)
+				SaveSelectManufactureContra();
+		}
 	};
 	int &GetSelectManufacture() {
-		return mSelectedManuIndex;
+		if (mGenerateMode == Generation::MSG) {
+			return mSelectedManuIndexMsg;
+		}
+		else if (mGenerateMode == Generation::CONTRA) {
+			return mSelectedManuIndexContra;
+		}
+		
 	};
 
 	void SetSelectList(SparseSet<int> select, bool save = true) {
-		mListSelectedPlugin[mSelectedManuIndex] = select;
-		if(save)
-			SaveSelectCache();
+		if (mGenerateMode == Generation::MSG) {
+			mListSelectedPluginMsg[mSelectedManuIndexMsg] = select;
+			if (save)
+				SaveSelectCacheMsg();
+		}
+		else if (mGenerateMode == Generation::CONTRA) {
+			mListSelectedPluginContra[mSelectedManuIndexContra] = select;
+			if (save)
+				SaveSelectCacheContra();
+		}
 	};
 	SparseSet<int> &GetSelectList() {
-		return mListSelectedPlugin[mSelectedManuIndex];
+		if (mGenerateMode == Generation::CONTRA) {
+			return mListSelectedPluginContra[mSelectedManuIndexContra];
+		}
+		else if (mGenerateMode == Generation::MSG) {
+			return mListSelectedPluginMsg[mSelectedManuIndexMsg];
+		}
 	};
 
 	Array<String> &GetManu() {
@@ -181,16 +206,20 @@ public:
 		SaveSetting();
 		SaveGeneration();
 		SaveListPlugin();
-		SaveSelectManufacture();
-		SaveSelectCache();
+		SaveSelectManufactureContra();
+		SaveSelectManufactureMsg();
+		SaveSelectCacheContra();
+		SaveSelectCacheMsg();
 	};
 	void ResetScan() {
 		mKnownPluginList->clear();
 		ClearList();
 	};
 	void ClearList() {
-		mSelectedManuIndex = 0;
-		mListSelectedPlugin.clear();
+		mSelectedManuIndexContra = 0;
+		mSelectedManuIndexMsg = 0;
+		mListSelectedPluginMsg.clear();
+		mListSelectedPluginContra.clear();
 		for (std::map<String, OwnedArray<PluginDescription>>::iterator it = mListPlugin.begin(); it != mListPlugin.end(); ++it) {
 			it->second.clear(false);
 		}
@@ -236,13 +265,25 @@ public:
 		ScopedPointer<KnownPluginList> knownPluginList = new KnownPluginList();
 		for (int i = 0; i < mListManu.size(); i++) {
 			OwnedArray<PluginDescription> &arr = mListPlugin[mListManu[i]];
-			SparseSet<int> &select = mListSelectedPlugin[i];
-			for (int j = 0; j < select.size(); j++) {
-				PluginDescription * des = arr[select[j]];
-				if (des != nullptr) {
-					knownPluginList->addType(*des);
+			if (mGenerateMode == Generation::MSG) {
+				SparseSet<int> &select = mListSelectedPluginMsg[i];
+				for (int j = 0; j < select.size(); j++) {
+					PluginDescription * des = arr[select[j]];
+					if (des != nullptr) {
+						knownPluginList->addType(*des);
+					}
 				}
 			}
+			else if (mGenerateMode == Generation::CONTRA) {
+				SparseSet<int> &select = mListSelectedPluginContra[i];
+				for (int j = 0; j < select.size(); j++) {
+					PluginDescription * des = arr[select[j]];
+					if (des != nullptr) {
+						knownPluginList->addType(*des);
+					}
+				}
+			}
+			
 		}
 
 		KnownPluginList::SortMethod pluginSortMethod = (KnownPluginList::SortMethod)gAppProperties->getUserSettings()->getIntValue("pluginSortMethod", KnownPluginList::sortByManufacturer);
@@ -260,8 +301,8 @@ private:
 	static ApplicationConfig *instance;
 
 	ApplicationConfig() {
-		mSelectedManuIndex = -1;
-
+		mSelectedManuIndexContra = -1;
+		mSelectedManuIndexMsg = -1;
 		PropertiesFile::Options options;
 		options.applicationName = "Plugin Manager";
 		options.filenameSuffix = "Config";
@@ -285,6 +326,13 @@ private:
 		LoadSelectCache();
 		// Process filter after loaded
 		ProcessFilter();
+	};
+
+	~ApplicationConfig() {
+		mAppProperties = nullptr;
+		mKnownPluginList = nullptr;
+		mDeadMansPedalFile = nullptr;
+		delete instance;
 	};
 
 	void LoadSetting() {
@@ -345,44 +393,76 @@ private:
 		}
 	};
 
-	void SaveSelectManufacture() {
+	void SaveSelectManufactureContra() {
 		PropertiesFile* userSettings = mAppProperties->getUserSettings();
-		userSettings->setValue("SELECT_MANUFACTURES", (int)mSelectedManuIndex);
+		userSettings->setValue("SELECT_MANUFACTURES_CONTRA", (int)mSelectedManuIndexContra);
+		mAppProperties->saveIfNeeded();
+	}
+	void SaveSelectManufactureMsg() {
+		PropertiesFile* userSettings = mAppProperties->getUserSettings();
+		userSettings->setValue("SELECT_MANUFACTURES_MSG", (int)mSelectedManuIndexMsg);
 		mAppProperties->saveIfNeeded();
 	}
 	void LoadSelectManufacture() {
 		PropertiesFile* userSettings = mAppProperties->getUserSettings();
-		mSelectedManuIndex = userSettings->getIntValue("SELECT_MANUFACTURES");
+		mSelectedManuIndexContra = userSettings->getIntValue("SELECT_MANUFACTURES_CONTRA");
+		mSelectedManuIndexMsg = userSettings->getIntValue("SELECT_MANUFACTURES_MSG");
 	}
 
-	void SaveSelectCache() {
+	void SaveSelectCacheMsg() {
 		XmlElement* const eCache = new XmlElement("SELECT_CACHE");
-		eCache->setAttribute("Size", (int)mListSelectedPlugin.size());
-		for (int i = 0; i < mListSelectedPlugin.size(); i++) {
-			eCache->addChildElement(XmlUtil::ToXml(mListSelectedPlugin[i]));
+		eCache->setAttribute("Size", (int)mListSelectedPluginMsg.size());
+		for (int i = 0; i < mListSelectedPluginMsg.size(); i++) {
+			eCache->addChildElement(XmlUtil::ToXml(mListSelectedPluginMsg[i]));
 		}
 		PropertiesFile*userSettings = mAppProperties->getUserSettings();
-		userSettings->setValue("CACHE", eCache);
-		mAppProperties->saveIfNeeded();
-	};
+		userSettings->setValue("CACHE_MSG", eCache);
+	}
+
+	void SaveSelectCacheContra() {
+		XmlElement* const eCache = new XmlElement("SELECT_CACHE");
+		eCache->setAttribute("Size", (int)mListSelectedPluginContra.size());
+		for (int i = 0; i < mListSelectedPluginContra.size(); i++) {
+			eCache->addChildElement(XmlUtil::ToXml(mListSelectedPluginContra[i]));
+		}
+		PropertiesFile*userSettings = mAppProperties->getUserSettings();
+		userSettings->setValue("CACHE_CONTRA", eCache);
+	}
+
 	void LoadSelectCache() {
-		mListSelectedPlugin.clear();
-		ScopedPointer<XmlElement> cache(mAppProperties->getUserSettings()->getXmlValue("CACHE"));
-		if (nullptr != cache)
+		mListSelectedPluginMsg.clear();
+		ScopedPointer<XmlElement> cache1(mAppProperties->getUserSettings()->getXmlValue("CACHE_MSG"));
+		if (nullptr != cache1)
 		{
-			if (cache->hasTagName("SELECT_CACHE"))
+			if (cache1->hasTagName("SELECT_CACHE"))
 			{
 				int i = 0;
-				forEachXmlChildElementWithTagName(*cache, eD, "SparseSetInt") {
-					mListSelectedPlugin[i++] = XmlUtil::FromXml(eD);
+				forEachXmlChildElementWithTagName(*cache1, eD, "SparseSetInt") {
+					mListSelectedPluginMsg[i++] = XmlUtil::FromXml(eD);
 				}
 			}
-			cache = nullptr;
+			cache1 = nullptr;
+		}
+		mListSelectedPluginContra.clear();
+		ScopedPointer<XmlElement> cache2(mAppProperties->getUserSettings()->getXmlValue("CACHE_MSG"));
+		if (nullptr != cache2)
+		{
+			if (cache2->hasTagName("SELECT_CACHE"))
+			{
+				int i = 0;
+				forEachXmlChildElementWithTagName(*cache2, eD, "SparseSetInt") {
+					mListSelectedPluginContra[i++] = XmlUtil::FromXml(eD);
+				}
+			}
+			cache2 = nullptr;
 		}
 	};
 
-	std::map<int, SparseSet<int>> mListSelectedPlugin;
-	int mSelectedManuIndex;
+	//std::map<int, SparseSet<int>> mListSelectedPlugin;
+	std::map<int, SparseSet<int>> mListSelectedPluginMsg;
+	std::map<int, SparseSet<int>> mListSelectedPluginContra;
+	int mSelectedManuIndexContra;
+	int mSelectedManuIndexMsg;
 
 	ScopedPointer<ApplicationProperties> mAppProperties;
 	Generation mGenerateMode;
