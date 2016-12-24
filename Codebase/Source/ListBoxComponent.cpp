@@ -89,7 +89,7 @@ ListBoxComponent::ListBoxComponent (Array<String> &listStrings, bool check)
 ListBoxComponent::~ListBoxComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
-	//mHeaderCheckBox = nullptr;
+	mListeners.clear(false);
 	mCheckBoxData = nullptr;
 	mData = nullptr;
 	mPluginCheckBoxData = nullptr;

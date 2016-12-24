@@ -176,20 +176,20 @@ void SettingComponent::buttonClicked (Button* buttonThatWasClicked)
 		String filter;
 #ifdef WIN32
         if (mSetting.mUseVST) {
-            filter = "*.dll ;";
+            filter += "*.dll;";
         }
         if (mSetting.mUseVST3) {
-            filter = "*.vst3 ;";
+            filter += "*.vst3;";
         }
 #else
         if (mSetting.mUseVST)
-            filter = "*.vst ;";
+            filter += "*.vst;";
         
         if (mSetting.mUseVST3)
-            filter = "*.vst3 ;";
+            filter += "*.vst3;";
         
         if (mSetting.mUseAU)
-            filter = "*.component ;";
+            filter += "*.component;";
 #endif
 		WildcardFileFilter wildcardFilter(filter, String::empty, "Foo files");
 		FileBrowserComponent browser(FileBrowserComponent::canSelectDirectories | FileBrowserComponent::openMode,

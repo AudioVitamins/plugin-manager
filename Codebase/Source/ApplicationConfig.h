@@ -112,8 +112,6 @@ public:
 
 				forEachXmlChildElement(xml, e)
 				{
-					PluginDescription info;
-
 					if (e->hasTagName("SCAN_PATHS"))
 						mPathScanDir.add(e->getStringAttribute("Path"));
 					else if (e->hasTagName("SCAN_CONFIG")) {
@@ -330,6 +328,7 @@ private:
 
 	~ApplicationConfig() {
 		mAppProperties = nullptr;
+		mKnownPluginList->clear();
 		mKnownPluginList = nullptr;
 		mDeadMansPedalFile = nullptr;
 		delete instance;
@@ -444,7 +443,7 @@ private:
 			cache1 = nullptr;
 		}
 		mListSelectedPluginContra.clear();
-		ScopedPointer<XmlElement> cache2(mAppProperties->getUserSettings()->getXmlValue("CACHE_MSG"));
+		ScopedPointer<XmlElement> cache2(mAppProperties->getUserSettings()->getXmlValue("CACHE_CONTRA"));
 		if (nullptr != cache2)
 		{
 			if (cache2->hasTagName("SELECT_CACHE"))

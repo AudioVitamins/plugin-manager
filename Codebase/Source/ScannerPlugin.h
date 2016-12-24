@@ -52,6 +52,7 @@ public:
 	{
 		// You need to use at least one thread when scanning plug-ins asynchronously
 	}
+
 	void Scan(){
 		startScan();
 	};
@@ -72,6 +73,7 @@ public:
 			pool = nullptr;
 		}
 		scanner = nullptr;
+		mListeners.clear(false);
 		stopTimer();
 	}
 
@@ -96,11 +98,6 @@ private:
 		for (int i = 0; i < mListeners.size(); i++) {
 			mListeners.getUnchecked(i)->scanPluginStarted(this, mFormatToScan.getName());
 		}
-		//if (propertiesToUse != nullptr)
-		//{
-		//	setLastSearchPath(*propertiesToUse, formatToScan, pathList.getPath());
-		//	propertiesToUse->saveIfNeeded();
-		//}
 
 		if (numThreads > 0)
 		{

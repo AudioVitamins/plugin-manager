@@ -105,6 +105,7 @@ public:
 			for (int i = 0; i < mListeners.size(); i++) {
 				mListeners.getUnchecked(i)->finishedScan();
 			}
+			mProgress.removeFromDesktop();
 			mFinished = true;
 			return;
 		}

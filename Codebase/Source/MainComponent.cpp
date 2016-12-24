@@ -230,6 +230,16 @@ void MainContentComponent::updateScan() {
 	mListManu = ApplicationConfig::Instance().GetManu();
 	lbxManufacture->UpdateList();
 	lbxManufacture->repaint();
+
+	mListPlugins.clear(false);
+	lbxPlugin->UpdateList();
+	lbxPlugin->repaint();
+	if (mListManu.size() > 0) {
+		lbxManufacture->selectRow(0, true);
+		mListPlugins.addArray(ApplicationConfig::Instance().GetPlugins(mListManu[0]), 0, ApplicationConfig::Instance().GetPlugins(mListManu[0]).size());
+		lbxPlugin->UpdateList();
+		lbxPlugin->repaint();
+	}
 }
 void MainContentComponent::selectedRowsChanged(ListBoxComponent *source, int lastRowSelected) {
 	if (source == lbxManufacture) {
