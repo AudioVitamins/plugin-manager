@@ -87,7 +87,7 @@ public:
 		Array<String> &mListStrings;
 		ListBoxComponent *mOwner;
 	public:
-		StringModel(ListBoxComponent *own, Array<String> &listStrings) : ListBoxModel(), mOwner(own), mListStrings(listStrings) {
+		StringModel(ListBoxComponent *own, Array<String> &listStrings) : ListBoxModel(), mListStrings(listStrings), mOwner(own) {
 
 		};
 
@@ -136,7 +136,7 @@ public:
 		Image uncheckBox, checkBox;
 		ListBoxComponent *mOwner;
 	public:
-		StringCheckBoxModel(ListBoxComponent *own, Array<String> &listStrings) : ListBoxModel(), mOwner(own), mListStrings(listStrings) {
+		StringCheckBoxModel(ListBoxComponent *own, Array<String> &listStrings) : ListBoxModel(), mListStrings(listStrings), mOwner(own) {
 			uncheckBox = ImageCache::getFromMemory(ListBoxComponent::pluginmanager_checkbox_empty_button_png, ListBoxComponent::pluginmanager_checkbox_empty_button_pngSize);
 			checkBox = ImageCache::getFromMemory(ListBoxComponent::pluginmanager_checkbox_greyfill_button_png, ListBoxComponent::pluginmanager_checkbox_greyfill_button_pngSize);
 		};
@@ -228,8 +228,11 @@ public:
 				g.drawImage(uncheckBox, x, y, 11, 11, 0, 0, 11, 11);
 			}
 			g.drawText(plugin->name, x + 11 + 4, 0, width - 4 - 50, height, Justification::centredLeft, true);
-
-			g.drawText(plugin->pluginFormatName, x + 11 + 4 + width - 4 - 50, 0, width - 4, height, Justification::centredLeft, true);
+            String formatName = plugin->pluginFormatName;
+            if(formatName == "AudioUnit") {
+               formatName = "AU";
+            }
+			g.drawText(formatName, x + 11 + 4 + width - 4 - 50, 0, width - 4, height, Justification::centredLeft, true);
 
 		};
 

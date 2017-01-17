@@ -19,6 +19,8 @@ public:
 	public:
 		virtual void scanPluginStarted(ScannerPlugin *source, String type) = 0;
 		virtual void scanPluginFinished(ScannerPlugin *source, String type) = 0;
+        
+        virtual ~Listener(){};
 	};
 private:
 	OwnedArray<Listener> mListeners;
@@ -112,7 +114,6 @@ private:
 
 	void finishedScan()
 	{
-
 		stopTimer();
 
 		for (int i = 0; i < mListeners.size(); i++) {

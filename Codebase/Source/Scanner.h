@@ -31,7 +31,7 @@ class Scanner:
 		NextScan();
 	};
 
-	void timerCallback() {
+	void timerCallback() override {
 		if (mScaner != nullptr) {
 			mProgressPercent = mScaner->getProgress();
 			mScanMsg = mMessage + mScaner->getScanMsg();
@@ -54,6 +54,7 @@ public:
 	public:
 		virtual void updateScan() = 0;
 		virtual void finishedScan() = 0;
+        virtual ~Listener() {};
 	};
 private:
 	String mMessage;
@@ -73,7 +74,7 @@ public:
 		}
 	};
 
-	Scanner(ApplicationConfig &app): mApp(app), mIndex(-1), mProgress("Scanning plugin", "", AlertWindow::NoIcon), mProgressPercent(0){
+	Scanner(ApplicationConfig &app): mApp(app), mProgressPercent(0), mIndex(-1), mProgress("Scanning plugin", "", AlertWindow::NoIcon){
 		mFormatManager.addDefaultFormats();
 		mMessage = "";
 		mFinished = true;
@@ -110,9 +111,10 @@ public:
 			return;
 		}
 
-		if (format != nullptr && (format->getName() == "VST" && mApp.GetSetting().mUseVST
-			|| format->getName() == "VST3" && mApp.GetSetting().mUseVST3
-			|| format->getName() == "AU" && mApp.GetSetting().mUseAU)) {
+		if (format != nullptr
+            && ((format->getName() == "VST" && mApp.GetSetting().mUseVST)
+                || (format->getName() == "VST3" && mApp.GetSetting().mUseVST3)
+                || (format->getName() == "AudioUnit" && mApp.GetSetting().mUseAU))) {
 			mScaner = new ScannerPlugin(
 				mApp.GetKnownPluginList(),
 				*format,

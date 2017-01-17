@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="YbevGD" name="Plugin Manager" projectType="guiapp" version="1.0.0"
               bundleIdentifier="com.yourcompany.PluginManager" includeBinaryInAppConfig="1"
-              jucerVersion="4.3.0">
+              jucerVersion="4.2.1">
   <MAINGROUP id="BYXomi" name="Plugin Manager">
     <GROUP id="{66699AE0-6290-0E57-9B61-B9916F103367}" name="Source">
       <GROUP id="{BA084A98-9D53-BB88-5393-46648F0E9F18}" name="XmlUtil">
@@ -19,6 +19,10 @@
       <FILE id="WAspfO" name="ApplicationConfig.h" compile="0" resource="0"
             file="Source/ApplicationConfig.h"/>
       <GROUP id="{64166B61-6BC2-735F-003C-E5E057083B05}" name="ListBoxComponent">
+        <FILE id="THGZwX" name="ReportComponent.cpp" compile="1" resource="0"
+              file="Source/ReportComponent.cpp"/>
+        <FILE id="TTR2LK" name="ReportComponent.h" compile="0" resource="0"
+              file="Source/ReportComponent.h"/>
         <FILE id="mzlAzO" name="SettingWindow.cpp" compile="1" resource="0"
               file="Source/SettingWindow.cpp"/>
         <FILE id="D3E2fT" name="SettingWindow.h" compile="0" resource="0" file="Source/SettingWindow.h"/>
@@ -66,25 +70,26 @@
         <MODULEPATH id="juce_audio_processors" path="../../../FrameWork/JUCE/modules"/>
       </MODULEPATHS>
     </VS2015>
-    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="">
+    <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="" vst3Folder="">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Plugin Manager"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Plugin Manager"
+                       osxCompatibility="default" osxArchitecture="default" osxSDK="default"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Plugin Manager"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_video" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../_SDKS/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../_SDKS/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_opengl" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_graphics" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_events" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_data_structures" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_cryptography" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_core" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../FrameWork/JUCE/modules/"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../FrameWork/JUCE/modules/"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>

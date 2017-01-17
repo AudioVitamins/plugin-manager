@@ -88,7 +88,7 @@ SettingComponent::SettingComponent ()
 
     //[Constructor] You can add your own custom stuff here..
 	//Update config
-	tgbVst->setToggleState(mSetting.mUseVST, false);
+	tgbVst->setToggleState(mSetting.mUseVST, dontSendNotification);
 	tgbVst3->setToggleState(mSetting.mUseVST3, false);
 	tgbAu->setToggleState(mSetting.mUseAU, false);
     //[/Constructor]

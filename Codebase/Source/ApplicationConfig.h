@@ -169,7 +169,7 @@ public:
 		else if (mGenerateMode == Generation::CONTRA) {
 			return mSelectedManuIndexContra;
 		}
-		
+        return mSelectedManuIndexContra;
 	};
 
 	void SetSelectList(SparseSet<int> select, bool save = true) {
@@ -191,6 +191,7 @@ public:
 		else if (mGenerateMode == Generation::MSG) {
 			return mListSelectedPluginMsg[mSelectedManuIndexMsg];
 		}
+        return mListSelectedPluginMsg[mSelectedManuIndexMsg];
 	};
 
 	Array<String> &GetManu() {
@@ -346,9 +347,8 @@ private:
             mSettingConfig.mPathScanDir.add("C:\Program Files\Steinberg\VstPlugins");
             mSettingConfig.mPathScanDir.add("C:\Program Files\Common Files\VST3");
 #else
-			mSettingConfig.mPathScanDir.add("/Library/Audio/Plugins/Components");
-			mSettingConfig.mPathScanDir.add("/Library/Audio/Plugins/VST");
-			mSettingConfig.mPathScanDir.add("/Library/Audio/Plugins/VST3");
+			mSettingConfig.mPathScanDir.add("/Library/Audio/Plugins/");
+			mSettingConfig.mPathScanDir.add("~/Library/Audio/Plugins/");
 #endif
 		}
 	};
